@@ -124,7 +124,14 @@ const StormCloud = () => {
     };
   }, []);
 
-  return <div ref={mountRef} />;
+  return (
+    <div
+      ref={mountRef}
+      style={{
+        position: 'absolute'
+      }}
+    />
+  );
 };
 
 export default StormCloud;

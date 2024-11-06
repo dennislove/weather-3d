@@ -46,19 +46,19 @@ function App() {
       >
         <h2>Click anywhere to start</h2>
       </div>
+      <StormCloud />
       <Canvas camera={{ position: [0, 1, 5], fov: 60 }} shadows>
         <ambientLight intensity={0.5} />
         <directionalLight position={[0, 10, 5]} intensity={1} castShadow />
 
         {/* Model FBX */}
         {/* <Rain modelRef={modelRef} {...rainSettings} /> */}
-        {/* <StormCloud /> */}
+
         <Background url="/house.fbx" modelProps={{ envMap: 1 }} />
         <FBXModel ref={modelRef} url="/CharacterMesh-VA.fbx" />
         <OrbitControls />
         {/* <Tree url="/tree.obj" /> */}
       </Canvas>
-
       {/* Control component để điều chỉnh cài đặt mưa */}
       <Control rainSettings={rainSettings} setRainSettings={setRainSettings} />
     </div>
