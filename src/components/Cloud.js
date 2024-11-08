@@ -1,10 +1,9 @@
 import React, { useEffect, forwardRef } from 'react';
 import { useLoader } from '@react-three/fiber';
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
-const FBXModel = forwardRef(({ url }, ref) => {
-  const model = useLoader(FBXLoader, url);
-
+const Cloud = ({ url }) => {
+  const model = useLoader(OBJLoader, url);
   useEffect(() => {
     if (model) {
       model.traverse((child) => {
@@ -16,16 +15,11 @@ const FBXModel = forwardRef(({ url }, ref) => {
       });
     }
   }, [model]);
-
   return (
-    <primitive
-      object={model}
-      ref={ref} // Gán ref cho đối tượng
-      scale={0.1}
-      position={[0, -20, 0]}
-      rotation={[0, -Math.PI / 2, 0]}
-    />
+    <group scale={0.1}>
+      <primitive object={model} scale={1} position={[200, -200, 0]} />
+    </group>
   );
-});
+};
 
-export default FBXModel;
+export default Cloud;

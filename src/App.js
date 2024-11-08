@@ -1,12 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import FBXModel from './components/models/FBXModel';
-import Background from './components/models/Background';
+import Background from './components/Background';
 import Rain from './components/RainComponent/Rain';
 import Control from './components/Control';
-import Tree from './components/models/Tree';
-import StormCloud from './components/models/StormCloud';
+import Man from './components/Character/Man';
+import FBXModel from './components/Character/FBXModel';
 
 function App() {
   const modelRef = useRef();
@@ -21,6 +20,7 @@ function App() {
   const handleStart = () => {
     setIsLoading(false);
   };
+  let corner = 90;
   return (
     <div
       style={{
@@ -46,18 +46,22 @@ function App() {
       >
         <h2>Click anywhere to start</h2>
       </div>
-      <StormCloud />
-      <Canvas camera={{ position: [0, 1, 5], fov: 60 }} shadows>
-        <ambientLight intensity={0.5} />
+      <Canvas camera={{ position: [0, 1, corner], fov: 60 }} shadows>
+        <ambientLight intensity={1} />
         <directionalLight position={[0, 10, 5]} intensity={1} castShadow />
 
         {/* Model FBX */}
         {/* <Rain modelRef={modelRef} {...rainSettings} /> */}
+        {/* <FBXModel /> */}
+        <Background />
 
-        <Background url="/house.fbx" modelProps={{ envMap: 1 }} />
-        <FBXModel ref={modelRef} url="/CharacterMesh-VA.fbx" />
-        <OrbitControls />
-        {/* <Tree url="/tree.obj" /> */}
+        <Man />
+        <OrbitControls
+          minDistance={corner} // Đặt khoảng cách mặc định là 30
+          maxDistance={corner} // Ngăn thay đổi khoảng cách
+          minPolarAngle={0} // Giới hạn góc xoay dọc
+          maxPolarAngle={Math.PI} // Không vượt quá 360 độ
+        />
       </Canvas>
       {/* Control component để điều chỉnh cài đặt mưa */}
       <Control rainSettings={rainSettings} setRainSettings={setRainSettings} />
